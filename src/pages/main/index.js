@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+
+import Maps from '~/componentes/maps';
+import Modal from '~/componentes/modal';
 
 // import { Container } from './styles';
 
-export default class Main extends Component {
+class Main extends Component {
   componentDidMount() {}
 
   render() {
     return (
-      <View>
-        <Text>Ola mundo</Text>
+      <View style={{ flex: 1 }}>
+        <Maps />
+        <Modal />
       </View>
     );
   }
 }
+
+export default Main;
