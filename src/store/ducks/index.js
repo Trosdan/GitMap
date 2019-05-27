@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
 
+import modal from './modal';
+import users from './users';
+
 const reducers = combineReducers({
-  // Remova essa linha depois de adicionar seus ducks
-  example: () => [],
+  modal,
+  users,
 });
 
 export default reducers;

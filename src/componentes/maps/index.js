@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 
 import MapView from 'react-native-maps';
 
-import {
-  View, Text, Modal, TouchableHighlight,
-} from 'react-native';
-
-// import { Container } from './styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as ModalActions } from '~/store/ducks/modal';
 
 class Maps extends Component {
   componentDidMount() {}
+
+  handleMapLongPress = ({ nativeEvent: { coordinate } }) => {
+    const { showModal } = this.props;
+    showModal({ coordinate });
+  };
 
   render() {
     return (
@@ -27,4 +30,11 @@ class Maps extends Component {
   }
 }
 
-export default Maps;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => bindActionCreators(ModalActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Maps);

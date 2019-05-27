@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 
 import Maps from '~/componentes/maps';
 import Modal from '~/componentes/modal';
@@ -13,6 +13,7 @@ class Main extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" />
         <Maps />
         <Modal />
       </View>
