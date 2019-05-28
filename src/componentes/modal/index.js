@@ -8,18 +8,23 @@ import { Creators as ModalActions } from '~/store/ducks/modal';
 import { Creators as UsersActions } from '~/store/ducks/users';
 
 import {
-  View, Modal as ModalView, Text, TextInput, TouchableHighlight,
+  View,
+  Modal as ModalView,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  ActivityIndicator,
 } from 'react-native';
 
 import styles from './styles';
+import { colors } from '~/styles';
 
 class Modal extends Component {
   state = {
     userInfo: '',
-  }
-
-  static propTypes = {
   };
+
+  static propTypes = {};
 
   handleHideModal = () => {
     const { hideModal } = this.props;
@@ -28,16 +33,17 @@ class Modal extends Component {
 
   handleSave = () => {
     const { userInfo } = this.state;
-    const { userAddRequest, coordinate} = this.props;
-    userAddRequest(userInfo, coordinate);
-  }
+    const { userAddRequest, modal } = this.props;
+    userAddRequest(userInfo, modal.coordinate);
+  };
 
   changeValue = (text) => {
     this.setState({ userInfo: text });
-  }
+  };
 
   render() {
     const { modal } = this.props;
+    const { users } = this.props;
     const { userInfo } = this.state;
     return (
       <ModalView
@@ -54,7 +60,7 @@ class Modal extends Component {
               autoCorrect={false}
               autoCapitalize="none"
               placeholder="Usuário no Github"
-              onChange={this.changeValue}
+              onChangeText={this.changeValue}
               value={userInfo}
             />
             <View style={styles.buttonsView}>
@@ -68,7 +74,11 @@ class Modal extends Component {
                 onPress={this.handleSave}
                 style={[styles.button, styles.buttonSave]}
               >
-                <Text style={styles.buttonText}>Salvar</Text>
+                {users.loading ? (
+                  <ActivityIndicator color={colors.white} />
+                ) : (
+                  <Text style={styles.buttonText}>Salvar</Text>
+                )}
               </TouchableHighlight>
             </View>
           </View>
@@ -80,9 +90,10 @@ class Modal extends Component {
 
 const mapStateToProps = state => ({
   modal: state.modal,
+  users: state.users,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({...ModalActions, ...UsersActions}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ ...ModalActions, ...UsersActions }, dispatch);
 
 export default connect(
   mapStateToProps,

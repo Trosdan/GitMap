@@ -3,11 +3,12 @@ import { colors, metrics } from '~/styles/index';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.black,
-    margin: metrics.baseMargin * 2,
+    flex: 1,
+    backgroundColor: colors.darkTransparent,
     justifyContent: 'center',
   },
   contentContainer: {
+    margin: metrics.baseMargin * 2,
     borderRadius: metrics.borderRadius,
     padding: metrics.basePadding,
     backgroundColor: colors.white,
