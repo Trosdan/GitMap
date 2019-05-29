@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { View, Text, Image } from 'react-native';
 
-import MapView from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as ModalActions } from '~/store/ducks/modal';
+
+import styles from './styles';
 
 class Maps extends Component {
   componentDidMount() {}
@@ -15,6 +18,7 @@ class Maps extends Component {
   };
 
   render() {
+    const { users } = this.props;
     return (
       <MapView
         onLongPress={this.handleMapLongPress}
@@ -25,12 +29,26 @@ class Maps extends Component {
           latitudeDelta: 0.0042,
           longitudeDelta: 0.0031,
         }}
-      />
+      >
+        {users.data.map(user => (
+          <Marker key={user.id} coordinate={user.coordinate}>
+            <Image source={{ uri: user.avatar_url }} style={styles.annotationContainer} />
+            <Callout>
+              <View style={styles.colloutContainer}>
+                <Text>{user.name}</Text>
+                {user.bio && <Text>{user.bio}</Text>}
+              </View>
+            </Callout>
+          </Marker>
+        ))}
+      </MapView>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  users: state.users,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators(ModalActions, dispatch);
 

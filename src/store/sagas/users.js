@@ -7,7 +7,9 @@ export function* addUser({ payload }) {
   try {
     console.tron.log(payload);
     const { data } = yield call(api.get, `/users/${payload.user}`);
-    yield put(UsersCreators.userAddSuccess({ data: { ...data, ...payload.coordinate } }));
+    yield put(
+      UsersCreators.userAddSuccess({ data: { ...data, coordinate: { ...payload.coordinate } } }),
+    );
     yield put(ModalCreators.hideModal());
   } catch (error) {
     yield put(UsersCreators.userAddFailure());
