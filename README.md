@@ -1,4 +1,4 @@
-# GitIssues
+# GitMap
 
 Project in React Native that accesses the GitHub API. it is possible to mark a github user on the map
 
